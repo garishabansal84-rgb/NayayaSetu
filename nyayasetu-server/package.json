@@ -9,6 +9,9 @@
     "dev": "nodemon server.js",
     "test": "node test_api.js"
   },
+  "engines": {
+    "node": ">=18.0.0"
+  },
   "dependencies": {
     "@google/generative-ai": "^0.24.0",
     "cors": "^2.8.5",

@@ -1,7 +1,7 @@
 import dotenv from 'dotenv';
 dotenv.config();
 import { GoogleGenerativeAI } from "@google/generative-ai";
-import { resolveJurisdiction, checkHospitalSchemeEmpanelment } from './KnowledgeBase.js';
+import { resolveJurisdiction, checkHospitalSchemeEmpanelment } from './knowledgeBase.js';
 
 const GEMINI_MODELS = ["gemini-3.7-flash", "gemini-3.5-flash", "gemini-3.6-flash", "gemini-3.1-flash-lite"];
 

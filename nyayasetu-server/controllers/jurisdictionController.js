@@ -1,4 +1,4 @@
-import { JURISDICTION_DIRECTORY, STATE_DIRECTORY, resolveJurisdiction } from '../services/KnowledgeBase.js';
+import { JURISDICTION_DIRECTORY, STATE_DIRECTORY, resolveJurisdiction } from '../services/knowledgeBase.js';
 
 export const lookupJurisdictionHandler = async (req, res, next) => {
   try {

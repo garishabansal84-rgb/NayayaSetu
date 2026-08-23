@@ -4,9 +4,11 @@ import dns from 'dns';
 // Ensure Node.js resolves MongoDB Atlas SRV records using standard public DNS servers
 // Fixes local Windows ISP / router querySrv ECONNREFUSED errors
 try {
-  dns.setServers(['8.8.8.8', '8.8.4.4', '1.1.1.1']);
+  if (process.platform === 'win32') {
+    dns.setServers(['8.8.8.8', '8.8.4.4', '1.1.1.1']);
+  }
 } catch (dnsErr) {
-  console.warn('DNS server configuration note:', dnsErr.message);
+  // Silent fallback in cloud environments
 }
 
 let isConnected = false;
