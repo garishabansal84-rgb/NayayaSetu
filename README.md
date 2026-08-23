@@ -1,86 +1,103 @@
+﻿<div align="center">
+
 # ⚖️ NyayaSetu (न्याय सेतु)
 ### Sovereign AI Civic & Legal Action Engine for Indian Citizens
 
-[![React](https://img.shields.io/badge/React-18.3-blue.svg?style=flat&logo=react)](https://reactjs.org/)
-[![Vite](https://img.shields.io/badge/Vite-6.1-646CFF.svg?style=flat&logo=vite)](https://vitejs.dev/)
-[![Node.js](https://img.shields.io/badge/Node.js-18%2B-green.svg?style=flat&logo=node.js)](https://nodejs.org/)
-[![Express](https://img.shields.io/badge/Express-4.21-lightgrey.svg?style=flat&logo=express)](https://expressjs.com/)
-[![Google Gemini](https://img.shields.io/badge/Google_Gemini-2.5_Flash-orange.svg?style=flat&logo=google)](https://ai.google.dev/)
-[![MongoDB](https://img.shields.io/badge/MongoDB-Atlas-47A248.svg?style=flat&logo=mongodb)](https://www.mongodb.com/)
-[![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-3.4-38B2AC.svg?style=flat&logo=tailwind-css)](https://tailwindcss.com/)
-[![License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
+[![React](https://img.shields.io/badge/React-18.3-61DAFB?style=for-the-badge&logo=react&logoColor=black)](https://reactjs.org/)
+[![Vite](https://img.shields.io/badge/Vite-6.1-646CFF?style=for-the-badge&logo=vite&logoColor=white)](https://vitejs.dev/)
+[![Node.js](https://img.shields.io/badge/Node.js-18%2B-339933?style=for-the-badge&logo=node.js&logoColor=white)](https://nodejs.org/)
+[![Express](https://img.shields.io/badge/Express-4.21-000000?style=for-the-badge&logo=express&logoColor=white)](https://expressjs.com/)
+[![Google Gemini](https://img.shields.io/badge/Google_Gemini-2.5_Flash-8E75B2?style=for-the-badge&logo=google&logoColor=white)](https://ai.google.dev/)
+[![MongoDB](https://img.shields.io/badge/MongoDB-Atlas-47A248?style=for-the-badge&logo=mongodb&logoColor=white)](https://www.mongodb.com/)
+[![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-3.4-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white)](https://tailwindcss.com/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?style=for-the-badge)](LICENSE)
+
+<p align="center">
+  <b>Bridging the Gap between Citizens and Justice through Sovereign AI, Statutory Diagnosis, Evidence Forensics & Automated Legal Drafting.</b>
+</p>
+
+</div>
 
 ---
 
 ## 📌 Table of Contents
-- [About NyayaSetu](#-about-nyayasetu)
-- [Key Features & Capabilities](#-key-features--capabilities)
-- [System Architecture](#-system-architecture)
-- [Project Directory Structure](#-project-directory-structure)
-- [Getting Started & Local Installation](#-getting-started--local-installation)
+
+- [🏛️ About NyayaSetu](#️-about-nyayasetu)
+- [✨ Core Capabilities](#-core-capabilities)
+- [🏗️ System Architecture](#️-system-architecture)
+- [📂 Repository Structure](#-repository-structure)
+- [🚀 Quick Start & Installation](#-quick-start--installation)
   - [Prerequisites](#prerequisites)
   - [1. Backend Setup](#1-backend-setup-nyayasetu-server)
   - [2. Frontend Setup](#2-frontend-setup-client)
-- [API Reference](#-api-reference)
-- [Statutory Frameworks & Standards](#-statutory-frameworks--standards)
-- [Contributing](#-contributing)
-- [License & Statutory Disclaimer](#-license--statutory-disclaimer)
+- [📡 API Documentation](#-api-documentation)
+- [📜 Statutory Law & Compliance Matrix](#-statutory-law--compliance-matrix)
+- [🔐 Privacy & Data Sovereignty](#-privacy--data-sovereignty)
+- [🤝 Contributing](#-contributing)
+- [📄 License & Disclaimer](#-license--disclaimer)
 
 ---
 
 ## 🏛️ About NyayaSetu
 
-**NyayaSetu (न्याय सेतु)** is an institutional-grade, citizen-first legal intelligence and civic grievance resolution platform designed specifically for the Indian legal framework. 
+**NyayaSetu (न्याय सेतु)** is an institutional-grade, citizen-first legal intelligence and civic grievance redressal platform engineered specifically for the Indian legal framework.
 
-Access to justice in India is often hindered by procedural complexity, archaic terminology, transition to new criminal codes (**Bharatiya Nyaya Sanhita 2023**, **BNSS 2023**, **BSA 2023**), and the high cost of formal pre-litigation documentation. **NyayaSetu** bridges this gap by offering:
+Access to justice in India is frequently hampered by procedural complexity, legalese, the transition to new criminal statutes (**Bharatiya Nyaya Sanhita 2023**, **BNSS 2023**, **BSA 2023**), and the high financial barrier of formal pre-litigation documentation. 
 
-1. **Official UIDAI Verhoeff Checksum Verification** before access is granted.
-2. **Unique NyayaPass Key-Based Authentication** to protect and bind citizen cases.
-3. **AI Legal Triage & Rights Diagnosis** grounded in Indian penal and civil statutes.
-4. **Forensic Multimodal Evidence OCR** for analyzing receipts, FIRs, invoices, and chats.
-5. **Automated Statutory Notice & Petition Drafting Studio** with instant PDF generation.
-6. **Reverse Welfare Scheme Matcher & Document-Gap Engine** for state and central benefits.
+**NyayaSetu** empowers every citizen with:
+1. **Mathematical Identity Integrity:** UIDAI Verhoeff Dihedral Checksum ($D_5$) verification.
+2. **Sovereign Access Key:** Lifetime unique `NyayaPass` credential card (`NP-2026-XXXX-XX-IN`).
+3. **Statutory AI Triage:** Instant diagnosis grounded in central acts, consumer laws, tenancy codes, and fundamental rights.
+4. **Multimodal OCR Forensics:** Evidence extraction from bills, agreements, WhatsApp chats, and FIR endorsements.
+5. **Pre-Litigation Drafting Studio:** Automated generation of formal Consumer Notices, RTI applications, and Police Petitions with instant PDF download.
+6. **Reverse Welfare Matcher:** Eligibility engine linking citizens with Central/State government schemes and highlighting document gaps.
+7. **Bilingual Accessibility:** Native support for English and हिन्दी with voice grievance recording.
 
 ---
 
-## ✨ Key Features & Capabilities
+## ✨ Core Capabilities
 
-### 🔒 1. UIDAI Aadhaar Verification & NyayaPass Key Authentication
-- **Verhoeff Dihedral Checksum ($D_5$):** Validates 12-digit Aadhaar numbers against the official UIDAI mathematical standard. Rejects invalid digits, counterfeit sequences, or numbers starting with 0/1.
-- **Unique NyayaPass Access Key (`NP-2026-XXXX-XX-IN`):** Upon verified signup, citizens receive a lifetime sovereign access key with a 1-click copy feature and printable digital credential card.
-- **Sovereign Feature Gatekeeper:** All interactive legal engines are strictly gated until unlocked with a verified NyayaPass Key.
+### 🔒 1. UIDAI Aadhaar Verification & NyayaPass Key Gateway
+- **Verhoeff Dihedral Checksum Validation:** Mathematically verifies 12-digit Aadhaar sequences to prevent invalid or counterfeit registrations without storing raw biometric payloads.
+- **Unique NyayaPass ID (`NP-2026-XXXX-XX-IN`):** Issues a cryptographically signed citizen pass card with 1-click credential copying and print-ready digital identity card.
+- **Sovereign Feature Gatekeeper:** Unlocks case vaults, drafting studios, and diagnostic engines upon verified authentication.
 
-### ⚖️ 2. AI Legal Triage & Rights Diagnosis
-- Powered by **Google Gemini 2.5 Flash** with specialized legal system prompts.
-- Analyzes plain-language grievances in English or Hindi and categorizes them under:
-  - **Criminal / Safety:** BNS 2023, BNSS 2023 (Zero FIR Right under Section 173), POCSO, IT Act Sec 66E/67.
-  - **Consumer Disputes:** Consumer Protection Act, 2019 (CPA Sec 35, e-Daakhil).
-  - **Tenancy Law:** Model Tenancy Act, 2021 (Security deposit withholding under Sec 11).
-  - **Transparency & Governance:** Right to Information Act, 2005 (RTI Sec 6(1)).
-  - **Healthcare Rights:** PM-JAY Ayushman Bharat Patient Charter & Emergency Admission Rights.
+### ⚖️ 2. AI Legal Triage & Rights Diagnosis Engine
+- Powered by **Google Gemini 2.5 Flash** with statutory prompt guards.
+- Analyzes plain-language grievances and maps them to applicable sections:
+  - **Criminal / Public Safety:** BNS 2023, BNSS 2023 (**Zero FIR Right** under Section 173), POCSO Act, IT Act (Sec 66E/67).
+  - **Consumer Redressal:** Consumer Protection Act 2019 (Sec 35, e-Daakhil filing eligibility).
+  - **Tenancy Disputes:** Model Tenancy Act 2021 (Unlawful deposit withholding, Sec 11 notice requirements).
+  - **Information & Governance:** Right to Information (RTI) Act 2005 (Sec 6(1) filing).
+  - **Healthcare & Emergency Rights:** Ayushman Bharat (PM-JAY) Charter & Emergency Hospital Admission Rights.
 
-### 📷 3. Multimodal Evidence Vault & Forensic OCR
-- Ingests invoices, medical bills, rent agreements, WhatsApp chat logs, and police endorsement receipts.
-- Automatically extracts merchant names, amounts, transaction dates, defect descriptions, and flags evidentiary gaps.
+### 📷 3. Forensic Evidence Vault & Multimodal OCR
+- Ingests bills, cash receipts, rent agreements, chat exports, and police endorsements.
+- Extracts merchant particulars, transaction timestamps, transaction IDs, defect descriptions, and highlights evidentiary omissions before formal filing.
 
-### 📜 4. Statutory Legal Notice Drafting Studio
-- Auto-generates structured, legally compliant drafts with official government formatting:
-  - **Pre-Litigation Consumer Demand Notice** (15-day cure window).
-  - **Section 6(1) RTI Application** with prescribed format for Public Information Officers (PIO).
-  - **Model Tenancy Deposit Refund Notice** under State Tenancy Authorities.
-  - **Formal Police Representation / Zero FIR Petition**.
-- Export directly to **Printable PDF** with timestamped legal disclaimers.
+### 📜 4. Automated Legal Notice Drafting Studio
+- Auto-generates structured, legally enforceable drafts with statutory formatting:
+  - **Pre-Litigation Consumer Demand Notice** (with statutory 15-day cure window).
+  - **Section 6(1) RTI Application** addressed to Public Information Officers (PIOs).
+  - **Model Tenancy Security Deposit Refund Notice** under State Tenancy Provisions.
+  - **Zero FIR Representation / Police Complaint** under BNSS Section 173.
+- Instant export to printable **PDF** with digital verification stamps and QR code validation.
 
 ### 🏛️ 5. Reverse Welfare Scheme Matcher & Document-Gap Engine
-- Cross-references citizen demographic parameters (State, District, Age, Gender, Income, Social Category) against Central and State welfare schemes (PM-JAY, PM-KISAN, Sukanya Samriddhi, PMAY, Old Age Pension, EWS Scholarship).
-- Detects missing documents required to claim benefits and provides application links.
+- Matches citizen profiles (Age, Gender, State, Income, Social Category) with central and state schemes:
+  - *PM-JAY (Ayushman Bharat)*
+  - *PM-KISAN Samman Nidhi*
+  - *Sukanya Samriddhi Yojana*
+  - *Pradhan Mantri Awas Yojana (PMAY)*
+  - *Old Age Pension / EWS Scholarships*
+- Detects missing documents needed to qualify and issues an actionable Document-Gap Checklist.
 
 ### 📍 6. National Jurisdiction & Free Legal Aid Finder
-- Comprehensive directory mapping of:
+- Integrated geo-jurisdiction registry for:
   - District Consumer Disputes Redressal Commissions (**DCDRC**).
-  - District Legal Services Authorities (**DLSA / NALSA** Free Legal Aid under Sec 12).
+  - District Legal Services Authorities (**DLSA / NALSA**) offering free legal aid under Section 12 of the Legal Services Authorities Act, 1987.
   - State Information Commissions (**SIC**).
-  - Municipal Public Grievance Cells (Swachhata / 1076).
+  - Municipal grievance escalations (CM Helpline / 1076 / Swachhata).
 
 ---
 
@@ -88,85 +105,119 @@ Access to justice in India is often hindered by procedural complexity, archaic t
 
 ```mermaid
 flowchart TD
-    A[Citizen Input / Grievance] --> B{Authenticated?}
-    B -- No --> C[NyayaPass Key Gateway]
-    C --> D[UIDAI Aadhaar Verhoeff Verification]
-    D --> E[Unique NyayaPass Key Issued: NP-2026-XXXX]
-    E --> F[Session Authenticated]
-    B -- Yes --> F
+    subgraph Client ["Client Layer (React + Vite + Tailwind)"]
+        UI[Citizen Portal]
+        Voice[Web Voice Input]
+        Pass[NyayaPass Credential Card]
+        Draft[Drafting Studio & PDF Preview]
+    end
 
-    F --> G[Workspace View Router]
-    G --> H[AI Legal Triage Engine - Gemini 2.5 Flash]
-    G --> I[Evidence Vault - Multimodal OCR]
-    G --> J[Notice Drafting Studio - PDF Generator]
-    G --> K[Reverse Scheme Matcher - Eligibility Engine]
-    G --> L[Jurisdiction Directory & DLSA Finder]
-    G --> M[Statutory Timeline Tracker]
+    subgraph Auth ["Identity & Security"]
+        Verhoeff[Verhoeff D5 Checksum Engine]
+        Gate[Protected Feature Gatekeeper]
+    end
 
-    H --> N[(MongoDB Atlas - Case Ledger)]
-    I --> N
-    J --> N
+    subgraph Server ["Server Layer (Express + Node.js)"]
+        API[Express REST API Gateway]
+        TriageSvc[AI Triage & Diagnosis Service]
+        RAGSvc[RAG & Legal Corpus Search]
+        OCRSvc[Evidence OCR & Multimodal Analysis]
+        PDFSvc[PDF Generation Engine]
+    end
+
+    subgraph AI ["AI & Knowledge Layer"]
+        Gemini[Google Gemini 2.5 Flash]
+        Corpus[(Government Legal Statutes & Schemes)]
+    end
+
+    subgraph Data ["Persistence"]
+        DB[(MongoDB Atlas - Case Ledger & Auth)]
+        Vault[Secure Uploads & Evidence Vault]
+    end
+
+    UI --> Voice
+    UI --> Pass
+    Pass --> Verhoeff
+    Verhoeff --> Gate
+    Gate --> API
+
+    API --> TriageSvc
+    API --> RAGSvc
+    API --> OCRSvc
+    API --> PDFSvc
+
+    TriageSvc --> Gemini
+    RAGSvc --> Corpus
+    OCRSvc --> Gemini
+    PDFSvc --> Draft
+
+    API --> DB
+    API --> Vault
 ```
 
 ---
 
-## 📂 Project Directory Structure
+## 📂 Repository Structure
 
 ```plaintext
-NayayaSetu_OG/
-├── client/                           # React + Vite Frontend Application
+NayayaSetu/
+├── client/                           # React + Vite Frontend
 │   ├── src/
 │   │   ├── components/
 │   │   │   ├── auth/                 # AuthModal, NyayaPassCard, ProtectedFeatureGate
+│   │   │   ├── civic/                # Civic Grievance Dashboard
 │   │   │   ├── common/               # Navbar, TopUtilityBar, EmergencyBanner, Footer
-│   │   │   ├── diagnosis/            # AI Triage & Rights Diagnosis Component
-│   │   │   ├── drafting/             # Notice & Petition Drafting Studio
-│   │   │   ├── evidence/             # Forensic Evidence Vault & OCR Upload
-│   │   │   ├── home/                 # Institutional Landing Page & Dispute Pills
-│   │   │   ├── jurisdiction/         # District Consumer & Legal Aid Finder
-│   │   │   ├── schemes/              # Welfare Scheme Matcher & Document Engine
-│   │   │   ├── tracker/              # Statutory Limitation & Timeline Tracker
+│   │   │   ├── diagnosis/            # AI Triage & Rights Diagnosis Section
+│   │   │   ├── drafting/             # Notice & Petition Drafting Studio & PDF Preview
+│   │   │   ├── evidence/             # Forensic Evidence Vault & OCR Inspector
+│   │   │   ├── home/                 # Institutional Landing View & Grievance Categories
+│   │   │   ├── jurisdiction/         # District Consumer & Free Legal Aid Finder
+│   │   │   ├── schemes/              # Welfare Scheme Matcher & Document-Gap Engine
+│   │   │   ├── tracker/              # Statutory Limitation & Case Tracker
 │   │   │   └── wiki/                 # Knowledge Base & Citizen Rights Wiki
 │   │   ├── context/                  # AuthContext, CaseContext, LanguageContext
-│   │   ├── services/                 # api.js (Axios Client), mockData.js
-│   │   ├── App.jsx                   # Main Institutional Router & Gating View
-│   │   └── main.jsx                  # React DOM Root
+│   │   ├── services/                 # api.js, mockData.js, voiceService.js
+│   │   ├── App.jsx                   # Main Institutional Router
+│   │   ├── index.css                 # Custom Styling & Typography
+│   │   └── main.jsx                  # React DOM Entrypoint
 │   ├── package.json
 │   ├── tailwind.config.js
 │   └── vite.config.js
 │
-├── nyayasetu-server/                 # Express + Node.js Backend API
-│   ├── config/                       # Database Configuration (Mongoose)
-│   ├── controllers/                  # authController, intakeController, ragController
-│   ├── middlewares/                  # Error Handling & Upload Middlewares
-│   ├── models/                       # Case.js, UserRepository.js
-│   ├── routes/                       # authRoutes, intakeRoutes, ragRoutes, civicRoutes
-│   ├── services/                     # geminiService.js, ocrService.js
+├── nyayasetu-server/                 # Node.js + Express Backend API
+│   ├── config/                       # Database Connection (MongoDB / Mongoose)
+│   ├── controllers/                  # auth, intake, draft, evidence, rag, civic controllers
+│   ├── middlewares/                  # Error Handling & Multer Upload Middleware
+│   ├── models/                       # Case.js, UserRepository.js, Scheme.js, Source.js
+│   ├── routes/                       # Express Route Definitions
+│   ├── services/                     # Gemini AI, OCR, PDF Generation, RAG Pipeline
 │   ├── server.js                     # Express Server Entrypoint
 │   ├── package.json
-│   └── .env.example                  # Environment Variables Template
+│   └── .env.example                  # Environment Template
 │
-├── .gitignore                        # Global Git Ignore File
+├── .gitignore                        # Root Git Ignore
+├── LICENSE                           # MIT License
 └── README.md                         # Project Documentation
 ```
 
 ---
 
-## 🚀 Getting Started & Local Installation
+## 🚀 Quick Start & Installation
 
 ### Prerequisites
 - **Node.js** v18.0.0 or higher
 - **npm** or **yarn**
-- **MongoDB** instance (Local or MongoDB Atlas)
-- **Google Gemini API Key** ([Get free key from Google AI Studio](https://aistudio.google.com/))
+- **MongoDB** (Local instance or MongoDB Atlas URI)
+- **Google Gemini API Key** ([Get your free API key from Google AI Studio](https://aistudio.google.com/))
 
 ---
 
 ### 1. Backend Setup (`nyayasetu-server`)
 
-1. Open terminal and navigate to `nyayasetu-server`:
+1. Clone the repository:
    ```bash
-   cd nyayasetu-server
+   git clone https://github.com/garishabansal84-rgb/NayayaSetu.git
+   cd NayayaSetu/nyayasetu-server
    ```
 
 2. Install dependencies:
@@ -174,35 +225,34 @@ NayayaSetu_OG/
    npm install
    ```
 
-3. Create your `.env` file from the template:
+3. Configure environment variables:
    ```bash
    cp .env.example .env
    ```
-
-4. Configure environment variables in `.env`:
+   Edit `.env` and fill in your values:
    ```env
    PORT=5005
    NODE_ENV=development
    FRONTEND_URL=http://localhost:3000
    MONGODB_URI=mongodb://localhost:27017/nyayasetu
-   GEMINI_API_KEY=your_gemini_api_key_here
+   GEMINI_API_KEY=your_google_gemini_api_key_here
    ```
 
-5. Start the backend server:
+4. Launch the backend server:
    ```bash
    npm start
-   # Or for development mode with auto-reload:
+   # Or for development with nodemon:
    npm run dev
    ```
-   Backend will be running at `http://localhost:5005`.
+   > Backend runs on `http://localhost:5005`
 
 ---
 
 ### 2. Frontend Setup (`client`)
 
-1. Open a new terminal and navigate to `client`:
+1. In a new terminal, navigate to the `client` directory:
    ```bash
-   cd client
+   cd ../client
    ```
 
 2. Install dependencies:
@@ -222,46 +272,69 @@ NayayaSetu_OG/
 
 ---
 
-## 📡 API Reference
+## 📡 API Documentation
 
 | Method | Endpoint | Description | Auth Required |
 | :--- | :--- | :--- | :---: |
-| `POST` | `/api/auth/verify-aadhaar` | Validates 12-digit Aadhaar via Verhoeff checksum algorithm | No |
-| `POST` | `/api/auth/signup` | Registers citizen and generates unique `NyayaPass` Key | Yes (Aadhaar Check) |
-| `POST` | `/api/auth/login` | Validates NyayaPass Key or registered Aadhaar | No |
-| `POST` | `/api/auth/verify-key` | Rapid validation of NyayaPass Key | No |
-| `GET` | `/api/auth/verify-pass/:id` | Public verification endpoint for NyayaPass QR codes | No |
-| `POST` | `/api/intake/diagnose` | Core AI legal diagnosis under Indian statutory law | Yes |
-| `POST` | `/api/rag/query` | RAG search over Indian legal acts and statutes | Yes |
-| `POST` | `/api/ocr/analyze` | Multimodal OCR & forensic evidence extraction | Yes |
-| `POST` | `/api/civic-analysis/analyze` | Municipal civic grievance triage and draft generation | Yes |
+| `POST` | `/api/auth/verify-aadhaar` | Verifies 12-digit Aadhaar using Verhoeff Dihedral Checksum | No |
+| `POST` | `/api/auth/signup` | Registers user & generates unique `NyayaPass` access key | Yes (Aadhaar Validated) |
+| `POST` | `/api/auth/login` | Authenticates via NyayaPass Key or verified credentials | No |
+| `POST` | `/api/auth/verify-key` | Fast verification of active NyayaPass Keys | No |
+| `GET` | `/api/auth/verify-pass/:id` | Public verification endpoint for QR code pass validation | No |
+| `POST` | `/api/intake/diagnose` | AI legal triage & rights diagnosis under Indian statutes | Yes |
+| `POST` | `/api/rag/query` | RAG retrieval across legal corpus and government schemes | Yes |
+| `POST` | `/api/evidence/upload` | Ingests receipts, agreements, chats for forensic OCR | Yes |
+| `POST` | `/api/drafts/generate` | Generates official formatted legal notices & petitions | Yes |
+| `GET` | `/api/drafts/download/:id` | Downloads drafted document as a stamped PDF | Yes |
+| `POST` | `/api/schemes/match` | Matches user demographics against welfare schemes | Yes |
+| `POST` | `/api/civic-analysis/analyze` | Municipal civic grievance triage & escalation drafting | Yes |
 
 ---
 
-## 📜 Statutory Frameworks & Standards
+## 📜 Statutory Law & Compliance Matrix
 
-NyayaSetu is engineered to align with official Indian statutory mandates:
-- **Digital Personal Data Protection Act (DPDP Act, 2023):** Aadhaar numbers are masked (`XXXX-XXXX-1234`) and hashes are secured using SHA-256 with no raw storage of identity biometric payloads.
-- **Section 12, Legal Services Authorities Act, 1987:** Auto-identifies citizens eligible for 100% free legal representation via DLSA/NALSA (Women, Children, SC/ST, Income < ₹3,00,000).
-- **Bharatiya Nagarik Suraksha Sanhita (BNSS, 2023):** Enforces citizen right to register **Zero FIR** under Section 173 regardless of jurisdictional boundaries.
-- **Consumer Protection Act, 2019:** Pre-formats statutory demand notices for speedy redressal through District Consumer Commissions (DCDRC).
+NyayaSetu is aligned with modern Indian statutory frameworks:
+
+| Area of Law | Governed Statute | Institutional Feature |
+| :--- | :--- | :--- |
+| **Criminal Law** | Bharatiya Nagarik Suraksha Sanhita (BNSS 2023) | Zero FIR Petition generation under Section 173 |
+| **Penal Code** | Bharatiya Nyaya Sanhita (BNS 2023) | Offence categorization & penalty identification |
+| **Consumer Rights** | Consumer Protection Act, 2019 | 15-day pre-litigation demand notice generator |
+| **Tenancy & Rent** | Model Tenancy Act, 2021 | Security deposit recovery notice under Section 11 |
+| **Public Transparency** | Right to Information Act, 2005 | Formatted Section 6(1) RTI applications |
+| **Cyber Law** | Information Technology Act, 2000 | Sections 66E / 67 privacy violation drafting |
+| **Free Legal Aid** | Legal Services Authorities Act, 1987 | Auto-eligibility detection for DLSA / NALSA representation |
+| **Data Privacy** | Digital Personal Data Protection Act (DPDP 2023) | Aadhaar masking (`XXXX-XXXX-1234`) & zero raw biometric storage |
+
+---
+
+## 🔐 Privacy & Data Sovereignty
+
+- **No Raw Aadhaar Storage:** Aadhaar numbers are validated locally in-memory using the mathematical Verhoeff algorithm. Only masked identifiers (`XXXX-XXXX-1234`) and SHA-256 hashes are stored.
+- **Client-Side Data Integrity:** User grievance inputs are isolated by unique NyayaPass credentials.
+- **Zero Third-Party Ad Trackers:** Clean, secure, institutional interface built with public service ethics.
 
 ---
 
 ## 🤝 Contributing
 
-Contributions are welcome! Please follow these steps:
-1. Fork the repository.
-2. Create a feature branch: `git checkout -b feature/AmazingFeature`
-3. Commit your changes: `git commit -m 'Add AmazingFeature'`
-4. Push to branch: `git push origin feature/AmazingFeature`
-5. Open a Pull Request.
+We welcome contributions from developers, legal professionals, and policy enthusiasts!
+
+1. Fork the repository
+2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
 
 ---
 
-## ⚖️ License & Statutory Disclaimer
+## 📄 License & Disclaimer
 
 This project is licensed under the **MIT License** - see the [LICENSE](LICENSE) file for details.
 
 > [!IMPORTANT]
-> **Legal Disclaimer:** NyayaSetu is an AI-powered civic empowerment and legal awareness platform. The analyses, checklists, and document drafts generated by this platform are designed for informational, pre-litigation assistance and statutory orientation. They do not constitute formal attorney-client representation. Citizens are advised to verify legal facts and consult a qualified legal aid advocate or legal professional when formally appearing before judicial bodies.
+> **Legal Notice:** NyayaSetu is an AI-driven civic empowerment and pre-litigation orientation platform. It does not replace formal legal counsel or create an advocate-client relationship. Citizens are encouraged to seek certified legal assistance or approach their local District Legal Services Authority (DLSA) when participating in formal judicial proceedings.
+
+<div align="center">
+  <sub>Built with ❤️ for Citizen Empowerment and Sovereign Digital Justice in India.</sub>
+</div>
