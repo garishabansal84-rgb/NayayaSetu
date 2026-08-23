@@ -1,7 +1,9 @@
 import axios from 'axios';
 import { SAMPLE_GRIEVANCES, SAMPLE_INVOICES } from './mockData.js';
 
-const API_BASE = '/api';
+const API_BASE = import.meta.env.VITE_API_URL 
+  ? `${import.meta.env.VITE_API_URL.replace(/\/$/, '')}/api` 
+  : '/api';
 
 const client = axios.create({
   baseURL: API_BASE,
