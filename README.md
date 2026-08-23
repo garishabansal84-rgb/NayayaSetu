@@ -1,4 +1,4 @@
-﻿<div align="center">
+<div align="center">
 
 # ⚖️ NyayaSetu (न्याय सेतु)
 ### Sovereign AI Civic & Legal Action Engine for Indian Citizens
@@ -33,6 +33,7 @@
 - [📡 API Documentation](#-api-documentation)
 - [📜 Statutory Law & Compliance Matrix](#-statutory-law--compliance-matrix)
 - [🔐 Privacy & Data Sovereignty](#-privacy--data-sovereignty)
+- [👥 Core Team & Authors](#-core-team--authors)
 - [🤝 Contributing](#-contributing)
 - [📄 License & Disclaimer](#-license--disclaimer)
 
@@ -313,6 +314,17 @@ NyayaSetu is aligned with modern Indian statutory frameworks:
 - **No Raw Aadhaar Storage:** Aadhaar numbers are validated locally in-memory using the mathematical Verhoeff algorithm. Only masked identifiers (`XXXX-XXXX-1234`) and SHA-256 hashes are stored.
 - **Client-Side Data Integrity:** User grievance inputs are isolated by unique NyayaPass credentials.
 - **Zero Third-Party Ad Trackers:** Clean, secure, institutional interface built with public service ethics.
+
+---
+
+## 👥 Core Team & Authors
+
+NyayaSetu was designed, engineered, and built collaboratively by:
+
+| Contributor | Role & Contributions | GitHub |
+| :--- | :--- | :--- |
+| **Garisha Bansal** | Full-Stack Engineering, AI Legal Inference & Architecture | [@garishabansal84-rgb](https://github.com/garishabansal84-rgb) |
+| **Tanvi Makhija** | Full-Stack Engineering, Civic Technology & Statutory Systems | [@Tanvi-tech612](https://github.com/Tanvi-tech612) |
 
 ---
 
