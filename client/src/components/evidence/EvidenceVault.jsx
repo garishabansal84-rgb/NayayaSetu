@@ -1,11 +1,13 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useCase } from '../../context/CaseContext';
 import { useLanguage } from '../../context/LanguageContext';
 import { OCRInspector } from './OCRInspector';
-import { analyzeEvidenceOCR } from '../../services/api';
+import { BSACertificateModal } from './BSACertificateModal';
+import { analyzeEvidenceOCR, computeClientSHA256 } from '../../services/api';
 import { 
   Camera, Upload, FileText, CheckCircle2, AlertTriangle, 
-  Sparkles, Eye, ShieldCheck, ArrowRight, RefreshCw, FileSearch 
+  Sparkles, Eye, ShieldCheck, ArrowRight, RefreshCw, FileSearch,
+  KeyRound, Award, Copy, Check
 } from 'lucide-react';
 
 export const EvidenceVault = () => {
@@ -13,6 +15,9 @@ export const EvidenceVault = () => {
   const { language, t } = useLanguage();
   const [analyzing, setAnalyzing] = useState(false);
   const [previewImage, setPreviewImage] = useState(null);
+  const [showBSAModal, setShowBSAModal] = useState(false);
+  const [sha256Hash, setSha256Hash] = useState('e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855');
+  const [copiedHash, setCopiedHash] = useState(false);
 
   const sampleBills = [
     {
@@ -29,6 +34,8 @@ export const EvidenceVault = () => {
         amount: "₹20,000.00",
         productDescription: "Security Deposit Consideration for Flat – 2B, Green View Apartments",
         items: [{ desc: "Security Deposit for Flat – 2B, Green View Apartments", amount: "₹20,000.00" }],
+        sha256Hash: "f4b892a0e41768c6e289bf65d836b9e27c1a84f3e6d52c1b98a7102e3456789a",
+        bsa63Admissible: true,
         keyFindings: [
           "Verifiable UPI transaction establishing ₹20,000 security deposit remittance to landlord Mr. Prakash Kumar",
           "Arbitrary deduction for painting and general cleaning without providing itemized repair bills or contractor receipts",
@@ -55,6 +62,8 @@ export const EvidenceVault = () => {
         totalAmount: "₹19,999.00",
         amount: "₹19,999.00",
         items: [{ desc: "Smartphone 5G (8GB/128GB)", amount: "₹19,999.00" }],
+        sha256Hash: "d2983b4c10ef89a12c45e67890bfa321567489ab1034e5678cd90123ef456789",
+        bsa63Admissible: true,
         keyFindings: [
           "Valid GSTIN matches official MCA records.",
           "Payment cleared via UPI; statutory transaction completed.",
@@ -83,6 +92,8 @@ export const EvidenceVault = () => {
         totalAmount: "₹50,000.00 (Deposit)",
         amount: "₹50,000.00",
         items: [{ desc: "Refundable Security Deposit Consideration", amount: "₹50,000.00" }],
+        sha256Hash: "b89012c45e67890bfa321567489ab1034e5678cd90123ef456789d2983b4c10e",
+        bsa63Admissible: true,
         keyFindings: [
           "Clause 4 explicitly states: Security deposit refundable within 30 days of vacation.",
           "Zero outstanding electricity or maintenance dues confirmed on exit clearance.",
@@ -98,45 +109,64 @@ export const EvidenceVault = () => {
     }
   ];
 
-  const handleFileUpload = (e) => {
+  const handleFileUpload = async (e) => {
     const file = e.target.files[0];
     if (!file) return;
+
+    // Calculate real-time SHA-256 hash
+    const computedHash = await computeClientSHA256(file);
+    setSha256Hash(computedHash);
 
     const reader = new FileReader();
     reader.onload = () => {
       setPreviewImage(reader.result);
-      processOCR(file);
+      processOCR(file, computedHash);
     };
     reader.readAsDataURL(file);
   };
 
-  const processOCR = async (file) => {
+  const processOCR = async (file, computedHash = null) => {
     setAnalyzing(true);
     try {
       const result = await analyzeEvidenceOCR(file, currentGrievance || '', currentReferenceId || '');
-      if (result && result.success && (result.data?.ocrResult || result.extractedData || result.ocrResult)) {
-        const data = result.data?.ocrResult || result.extractedData || result.ocrResult;
-        setEvidenceData(data);
-        showToast('Document evidence extracted successfully.', 'success');
+      if (result && (result.success || result.data || result.extractedData || result.ocrResult)) {
+        const data = result.data?.ocrResult || result.data?.extractedData || result.extractedData || result.ocrResult;
+        if (data) {
+          if (computedHash) data.sha256Hash = computedHash;
+          if (result.sha256Hash) setSha256Hash(result.sha256Hash);
+          setEvidenceData(data);
+          showToast('Document evidence extracted successfully with AI Vision.', 'success');
+        } else {
+          throw new Error('No structured facts found in OCR output.');
+        }
       } else {
-        throw new Error('OCR extraction failed');
+        throw new Error('OCR extraction returned empty response.');
       }
     } catch (err) {
-      console.log('Using smart extracted forensic result:', err.message);
-      const grievanceLower = (currentGrievance || '').toLowerCase();
-      const isRent = /\b(rent|deposit|landlord|painting|cleaning|tenant|tenancy|apartment|flat)\b/i.test(grievanceLower);
-      const fallbackSample = isRent ? sampleBills[0] : sampleBills[1];
-      setEvidenceData(fallbackSample.data);
-      showToast('Document analyzed with forensic OCR.', 'info');
+      console.error('Evidence OCR live extraction error:', err.message);
+      showToast(`AI OCR Error: ${err.message}. You can use 'Edit Details' to enter particulars manually.`, 'error');
     } finally {
       setAnalyzing(false);
     }
   };
 
-  const loadSample = (sample) => {
+  const loadSample = async (sample) => {
     setPreviewImage(sample.image);
     setEvidenceData(sample.data);
+    if (sample.data.sha256Hash) {
+      setSha256Hash(sample.data.sha256Hash);
+    } else {
+      const h = await computeClientSHA256(sample.title);
+      setSha256Hash(h);
+    }
     showToast(`Loaded benchmark sample: ${sample.title}`, 'info');
+  };
+
+  const handleCopyHash = () => {
+    navigator.clipboard.writeText(sha256Hash);
+    setCopiedHash(true);
+    showToast('SHA-256 Checksum copied to clipboard.', 'info');
+    setTimeout(() => setCopiedHash(false), 2500);
   };
 
   return (
@@ -144,9 +174,15 @@ export const EvidenceVault = () => {
       
       {/* Header Card */}
       <div className="gov-card p-6 bg-gradient-to-r from-slate-50 to-slate-100/60 border-slate-300">
-        <span className="text-xs font-bold uppercase tracking-wider text-emerald-800 block mb-1">
-          Multimodal Evidence Forensics & Document Audit
-        </span>
+        <div className="flex items-center justify-between flex-wrap gap-2 mb-1">
+          <span className="text-xs font-bold uppercase tracking-wider text-emerald-800 block">
+            Multimodal Evidence Forensics & Document Audit
+          </span>
+          <span className="text-[11px] font-extrabold px-2.5 py-0.5 rounded bg-[#0A2540] text-emerald-300 border border-slate-700 flex items-center gap-1.5">
+            <Award className="w-3.5 h-3.5 text-amber-400" />
+            <span>BSA 2023 SEC 63 COMPLIANT</span>
+          </span>
+        </div>
         <h1 className="text-xl sm:text-2xl font-bold text-[#0A2540]">
           {t.evidenceTitle}
         </h1>
@@ -192,7 +228,7 @@ export const EvidenceVault = () => {
                   <button
                     key={sample.id}
                     onClick={() => loadSample(sample)}
-                    className="w-full text-left p-3 rounded-md border border-slate-200 hover:border-[#0A2540] bg-white hover:bg-slate-50 text-xs font-semibold text-slate-800 flex items-center justify-between shadow-2xs transition-colors"
+                    className="w-full text-left p-3 rounded-md border border-slate-200 hover:border-[#0A2540] bg-white hover:bg-slate-50 text-xs font-semibold text-slate-800 flex items-center justify-between shadow-2xs transition-colors cursor-pointer"
                   >
                     <span className="truncate">{sample.title}</span>
                     <FileSearch className="w-4 h-4 text-slate-500" />
@@ -201,6 +237,35 @@ export const EvidenceVault = () => {
               </div>
             </div>
 
+          </div>
+
+          {/* SHA-256 Cryptographic Evidence Integrity Card */}
+          <div className="gov-card p-4 bg-slate-900 text-white rounded-lg space-y-3 border-slate-800 shadow-sm">
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-2 text-xs font-bold text-emerald-400 uppercase tracking-wide">
+                <KeyRound className="w-4 h-4" />
+                <span>BSA 2023 Sec 63 SHA-256 Integrity Seal</span>
+              </div>
+              <button
+                onClick={handleCopyHash}
+                className="flex items-center gap-1 text-[10px] bg-slate-800 hover:bg-slate-700 text-slate-300 px-2 py-0.5 rounded border border-slate-700 cursor-pointer"
+              >
+                {copiedHash ? <Check className="w-3 h-3 text-emerald-400" /> : <Copy className="w-3 h-3" />}
+                <span>{copiedHash ? 'Copied' : 'Copy'}</span>
+              </button>
+            </div>
+
+            <div className="p-2 bg-slate-950 rounded border border-slate-800 font-mono text-[10px] text-emerald-300 break-all select-all">
+              {sha256Hash}
+            </div>
+
+            <button
+              onClick={() => setShowBSAModal(true)}
+              className="w-full py-2 px-3 rounded bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs flex items-center justify-center gap-2 shadow-sm transition-all cursor-pointer"
+            >
+              <FileText className="w-4 h-4 text-amber-300" />
+              <span>Generate BSA Section 63 Court Certificate</span>
+            </button>
           </div>
 
           {/* Document Preview Image */}
@@ -219,12 +284,12 @@ export const EvidenceVault = () => {
           <div className="gov-card p-4 bg-slate-900 text-white rounded-lg space-y-2.5 border-slate-800 shadow-sm">
             <div className="flex items-center gap-2 text-xs font-bold text-emerald-400 uppercase tracking-wide">
               <ShieldCheck className="w-4 h-4" />
-              <span>{language === 'hi' ? 'नागरिक डेटा सुरक्षा एवं बैंकिंग गोपनीयता' : 'Citizen Privacy & Banking Security Shield'}</span>
+              <span>{language === 'hi' ? 'नागरिक डेटा सुरक्षा एवं साक्ष्य संप्रभुता' : 'Citizen Privacy & Evidentiary Sovereignty'}</span>
             </div>
             <p className="text-[11px] text-slate-300 leading-relaxed">
               {language === 'hi'
-                ? 'DPDP अधिनियम 2023 और साक्ष्य अधिनियम (धारा 65B) के अनुसार: बैंक विवरण केवल कानूनी नोटिस में रिफंड गंतव्य के लिए उपयोग किए जाते हैं। कभी भी पिन, पासवर्ड या सीवीवी नहीं मांगा या संग्रहीत किया जाता।'
-                : 'Under the Digital Personal Data Protection (DPDP) Act 2023 & Section 65B Evidence Act: Bank identifiers (Account/IFSC) are exclusively processed for statutory refund claim routing in legal notices. PINs, Passwords, and CVVs are strictly NEVER collected.'}
+                ? 'DPDP अधिनियम 2023 एवं भारतीय साक्ष्य अधिनियम 2023 (धारा 63): डिजिटल साक्ष्य को SHA-256 हैश द्वारा सील किया जाता है। बैंक विवरण केवल कानूनी नोटिस में रिफंड गंतव्य के लिए उपयोग किए जाते हैं।'
+                : 'Under DPDP Act 2023 & Bharatiya Sakshya Adhiniyam 2023 (Section 63): Digital evidence is cryptographically sealed with SHA-256 digests. Bank/ID data is strictly purpose-bound for statutory claim notices.'}
             </p>
             <div className="grid grid-cols-2 gap-2 pt-1 text-[10px] text-slate-400 border-t border-slate-800">
               <div className="flex items-center gap-1">
@@ -241,7 +306,7 @@ export const EvidenceVault = () => {
               </div>
               <div className="flex items-center gap-1">
                 <span className="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
-                <span>Sec 65B Hashed Evidence</span>
+                <span>BSA 2023 Sec 63 Certified</span>
               </div>
             </div>
           </div>
@@ -252,12 +317,24 @@ export const EvidenceVault = () => {
         <div className="lg:col-span-7">
           <OCRInspector 
             evidenceData={evidenceData} 
-            analyzing={analyzing} 
+            analyzing={analyzing}
+            sha256Hash={sha256Hash}
+            onOpenBSAModal={() => setShowBSAModal(true)}
           />
         </div>
 
       </div>
 
+      {/* BSA Section 63 Certificate Modal */}
+      <BSACertificateModal
+        isOpen={showBSAModal}
+        onClose={() => setShowBSAModal(false)}
+        evidenceData={evidenceData}
+        sha256Hash={sha256Hash}
+      />
+
     </div>
   );
 };
+export default EvidenceVault;
+

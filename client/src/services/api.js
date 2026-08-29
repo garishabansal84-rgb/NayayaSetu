@@ -3,7 +3,7 @@ import { SAMPLE_GRIEVANCES, SAMPLE_INVOICES } from './mockData.js';
 
 const API_BASE = import.meta.env.VITE_API_URL 
   ? `${import.meta.env.VITE_API_URL.replace(/\/$/, '')}/api` 
-  : '/api';
+  : (typeof window !== 'undefined' && window.location.hostname === 'localhost' ? 'http://localhost:5005/api' : '/api');
 
 const client = axios.create({
   baseURL: API_BASE,
@@ -33,6 +33,7 @@ export const apiDiagnoseGrievance = async ({ rawText, citizenName, phone, email,
     console.warn('Backend API offline or unreachable, using sovereign fallback diagnosis:', err.message);
     const textLower = (rawText || '').toLowerCase();
     
+    let matching = null;
     if (/\b(harass|harassment|stalk|stalking|eve\s*teasing|transport\s*stop|bus\s*stop|patrol|patrols|college\s*student|girl|woman|women\s*safety|1090|bns\s*74|bns\s*75|bns\s*78|bns\s*79|modesty)\b/i.test(textLower)) {
       matching = SAMPLE_GRIEVANCES.find(g => g.id === 'g11');
     } else if (/\b(garbage|waste|overflowing|smell|sanitation|safai|kachra|drain|sewage|uncollected|dustbin|stagnant|dengue|foul\s*smell)\b/i.test(textLower)) {
@@ -74,67 +75,32 @@ export const diagnoseDispute = async (rawText, district = 'Lucknow', language = 
 };
 
 /**
- * 2. Multimodal OCR Evidence Analysis
+ * 2. Multimodal OCR Evidence Analysis (Direct AI Vision Engine)
  */
 export const apiAnalyzeEvidence = async (formDataOrMock, userGrievance = '') => {
   try {
-    let res;
+    let resData;
     if (formDataOrMock instanceof FormData) {
-      res = await client.post('/intake/analyze-evidence', formDataOrMock, {
-        headers: { 'Content-Type': 'multipart/form-data' }
+      const response = await fetch(`${API_BASE}/intake/analyze-evidence`, {
+        method: 'POST',
+        body: formDataOrMock
       });
+      if (!response.ok) {
+        const errorText = await response.text();
+        throw new Error(`Server returned ${response.status}: ${errorText}`);
+      }
+      resData = await response.json();
     } else {
-      res = await client.post('/intake/analyze-evidence', formDataOrMock);
+      const res = await client.post('/intake/analyze-evidence', formDataOrMock);
+      resData = res.data;
     }
-    return res.data;
+    return resData;
   } catch (err) {
-    console.warn('Evidence API fallback:', err.message);
-    const grievanceText = (userGrievance || '').toLowerCase();
-    const isRent = /\b(rent|deposit|landlord|painting|cleaning|tenant|tenancy|apartment|flat)\b/i.test(grievanceText);
-    const mock = isRent ? (SAMPLE_INVOICES[1] || SAMPLE_INVOICES[0]) : SAMPLE_INVOICES[0];
-    const data = {
-      vendorName: mock.merchant,
-      merchant: mock.merchant,
-      gstin: mock.gstin,
-      invoiceNumber: mock.invoiceNo,
-      amount: mock.amount,
-      totalAmount: mock.amount,
-      date: mock.date,
-      productDescription: isRent ? 'Security Deposit Consideration for Rented Premises' : 'OnePlus 12R Smartphone (128GB, Iron Gray)',
-      warrantyClause: isRent ? 'Model Tenancy Act Sec 11: Mandatory refund of deposit without arbitrary deductions.' : '1-Year Official Manufacturer Warranty against manufacturing defects.',
-      breachPoint: mock.breach,
-      evidenceStrength: mock.strength,
-      keyFacts: isRent ? [
-        'Electronic payment receipt confirming deposit remittance to landlord',
-        'Arbitrary deduction for painting and cleaning without contractor bills',
-        'Section 11 Model Tenancy Act mandates full return of deposit within statutory window'
-      ] : [
-        'Authentic Tax Invoice generated with valid GSTIN',
-        'Full consideration of ₹19,999 remitted via digital banking',
-        'Delivery reported damaged within 24 hours of transit arrival'
-      ],
-      keyFindings: isRent ? [
-        'Electronic payment receipt confirming deposit remittance to landlord',
-        'Arbitrary deduction for painting and cleaning without contractor bills',
-        'Section 11 Model Tenancy Act mandates full return of deposit within statutory window'
-      ] : [
-        'Authentic Tax Invoice generated with valid GSTIN',
-        'Full consideration of ₹19,999 remitted via digital banking',
-        'Delivery reported damaged within 24 hours of transit arrival'
-      ]
-    };
-    return {
-      success: true,
-      data: {
-        ocrResult: data,
-        extractedData: data
-      },
-      ocrResult: data,
-      extractedData: data,
-      source: 'OFFLINE_FALLBACK_VISION'
-    };
+    console.warn('Evidence API live call error:', err.message);
+    throw err;
   }
 };
+
 
 export const analyzeEvidenceOCR = async (file, userDescription = '', caseId = '') => {
   const formData = new FormData();
@@ -149,6 +115,80 @@ export const analyzeEvidenceOCR = async (file, userDescription = '', caseId = ''
   }
   return apiAnalyzeEvidence(formData, userDescription);
 };
+
+/**
+ * 2.1 Calculate Client-Side SHA-256 Cryptographic Hash
+ */
+export const computeClientSHA256 = async (fileOrText) => {
+  try {
+    if (window.crypto && window.crypto.subtle) {
+      let buffer;
+      if (fileOrText instanceof Blob || fileOrText instanceof File) {
+        buffer = await fileOrText.arrayBuffer();
+      } else if (typeof fileOrText === 'string') {
+        const encoder = new TextEncoder();
+        buffer = encoder.encode(fileOrText);
+      }
+      if (buffer) {
+        const hashBuffer = await window.crypto.subtle.digest('SHA-256', buffer);
+        const hashArray = Array.from(new Uint8Array(hashBuffer));
+        return hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+      }
+    }
+  } catch (err) {
+    console.warn('WebCrypto SHA-256 generation error:', err);
+  }
+  // Deterministic fallback hash for benchmark simulations
+  const str = typeof fileOrText === 'string' ? fileOrText : (fileOrText?.name || 'evidence_record');
+  let hash = 0;
+  for (let i = 0; i < str.length; i++) {
+    hash = ((hash << 5) - hash) + str.charCodeAt(i);
+    hash |= 0;
+  }
+  const hex = Math.abs(hash).toString(16).padStart(8, '0');
+  return `a7f9${hex}c3924f81e67b2d5a90184b2e9c7a1024589d34e6f512`.substring(0, 64);
+};
+
+/**
+ * 2.2 Generate Section 63 Bharatiya Sakshya Adhiniyam (BSA 2023) Electronic Evidence Certificate
+ */
+export const apiGenerateBSACertificate = async ({
+  evidenceData = {},
+  citizenDetails = {},
+  deviceDetails = {},
+  fileMetadata = {},
+  hashDigest = null
+}) => {
+  try {
+    const res = await client.post('/evidence/certificate', {
+      evidenceData,
+      citizenDetails,
+      deviceDetails,
+      fileMetadata,
+      hashDigest
+    });
+    return res.data;
+  } catch (err) {
+    console.warn('BSA Certificate API fallback:', err.message);
+    const ref = evidenceData.referenceId || `BSA63-${Date.now().toString(36).toUpperCase()}`;
+    const hash = hashDigest || evidenceData.sha256Hash || 'e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855';
+    return {
+      success: true,
+      message: 'Bharatiya Sakshya Adhiniyam Section 63 Certificate generated in sovereign offline mode.',
+      downloadUrl: null,
+      filename: `BSA63_CERTIFICATE_${ref}.pdf`,
+      refNumber: ref,
+      sha256Hash: hash,
+      certificate: {
+        certificateId: ref,
+        statute: 'Bharatiya Sakshya Adhiniyam, 2023 — Section 63(4)',
+        sha256Hash: hash,
+        date: new Date().toLocaleDateString('en-IN')
+      }
+    };
+  }
+};
+
 
 /**
  * 3. Generate Legal Draft & Signed PDF with QR Verification

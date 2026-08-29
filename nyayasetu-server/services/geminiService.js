@@ -3,7 +3,7 @@ dotenv.config();
 import { GoogleGenerativeAI } from "@google/generative-ai";
 import { resolveJurisdiction, checkHospitalSchemeEmpanelment } from './knowledgeBase.js';
 
-const GEMINI_MODELS = ["gemini-3.7-flash", "gemini-3.5-flash", "gemini-3.6-flash", "gemini-3.1-flash-lite"];
+const GEMINI_MODELS = ["gemini-3.6-flash", "gemini-3.7-flash", "gemini-3.5-flash", "gemini-3.1-flash-lite"];
 
 export async function generateWithFallback(genAI, content, options = {}) {
   let lastError = null;
@@ -21,6 +21,7 @@ export async function generateWithFallback(genAI, content, options = {}) {
 }
 
 function getGenAI() {
+  dotenv.config();
   const key = process.env.GEMINI_API_KEY;
   if (key) {
     return new GoogleGenerativeAI(key);
