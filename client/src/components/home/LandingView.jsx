@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { useCase } from '../../context/CaseContext';
 import { useLanguage } from '../../context/LanguageContext';
 import { useAuth } from '../../context/AuthContext';
@@ -9,11 +9,32 @@ import {
   FileCheck, Users, Search, Lock, KeyRound, Fingerprint 
 } from 'lucide-react';
 
+import hero1 from '../../assets/hero/hero1.jpg';
+import hero2 from '../../assets/hero/hero2.jpg';
+import hero3 from '../../assets/hero/hero3.jpg';
+import hero4 from '../../assets/hero/hero4.jpg';
+
+const heroImages = [
+  { src: hero1, alt: 'Lady Justice and Rule of Law' },
+  { src: hero2, alt: 'Parliament House of India' },
+  { src: hero3, alt: 'Citizen Empowerment and Civic Action' },
+  { src: hero4, alt: 'New Parliament of India' }
+];
+
 export const LandingView = () => {
   const { setActiveTab, setCurrentGrievance } = useCase();
   const { language, t } = useLanguage();
   const { isAuthenticated, nyayaPassKey, openAuthModal } = useAuth();
   const isHi = language === 'hi';
+
+  const [currentSlide, setCurrentSlide] = useState(0);
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCurrentSlide((prev) => (prev + 1) % heroImages.length);
+    }, 3000);
+    return () => clearInterval(timer);
+  }, []);
 
   const quickCases = [
     {
@@ -47,8 +68,28 @@ export const LandingView = () => {
     <div className="space-y-16 animate-fade-in pb-16">
       
       {/* SECTION 1: HERO SECTION */}
-      <section className="bg-gradient-to-b from-slate-100/80 via-slate-50 to-white border-b border-slate-200 pt-10 pb-16">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <section className="relative overflow-hidden border-b border-slate-200 pt-10 pb-16 bg-slate-50/50">
+        {/* Sliding Background Photos */}
+        <div className="absolute inset-0 pointer-events-none select-none overflow-hidden z-0">
+          <div 
+            className="flex h-full w-full transition-transform duration-1000 ease-in-out"
+            style={{ transform: `translateX(-${currentSlide * 100}%)` }}
+          >
+            {heroImages.map((img, idx) => (
+              <div key={idx} className="min-w-full h-full relative flex-shrink-0">
+                <img 
+                  src={img.src} 
+                  alt={img.alt} 
+                  className="w-full h-full object-cover object-center opacity-25"
+                />
+              </div>
+            ))}
+          </div>
+          {/* Frosted / Gradient Overlay for optimal text legibility and contrast */}
+          <div className="absolute inset-0 bg-gradient-to-b from-slate-100/75 via-white/80 to-white/95" />
+        </div>
+
+        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           
           <div className="max-w-3xl mx-auto text-center space-y-6">
             
@@ -129,6 +170,20 @@ export const LandingView = () => {
                   </button>
                 ))}
               </div>
+            </div>
+
+            {/* Hero Slider Dots */}
+            <div className="flex items-center justify-center gap-1.5 pt-3">
+              {heroImages.map((_, idx) => (
+                <button
+                  key={idx}
+                  onClick={() => setCurrentSlide(idx)}
+                  className={`h-1.5 rounded-full transition-all duration-300 cursor-pointer ${
+                    currentSlide === idx ? 'w-6 bg-[#0A2540]' : 'w-2 bg-slate-400/50 hover:bg-slate-600'
+                  }`}
+                  aria-label={`Slide ${idx + 1}`}
+                />
+              ))}
             </div>
 
           </div>
