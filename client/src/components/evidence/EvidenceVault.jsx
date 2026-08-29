@@ -3,16 +3,19 @@ import { useCase } from '../../context/CaseContext';
 import { useLanguage } from '../../context/LanguageContext';
 import { OCRInspector } from './OCRInspector';
 import { BSACertificateModal } from './BSACertificateModal';
+import { EvidenceClaimMap } from './EvidenceClaimMap';
+import { WhyNeeded } from '../common/WhyNeeded';
 import { analyzeEvidenceOCR, computeClientSHA256 } from '../../services/api';
 import { 
   Camera, Upload, FileText, CheckCircle2, AlertTriangle, 
   Sparkles, Eye, ShieldCheck, ArrowRight, RefreshCw, FileSearch,
-  KeyRound, Award, Copy, Check
+  KeyRound, Award, Copy, Check, Layers
 } from 'lucide-react';
 
 export const EvidenceVault = () => {
   const { evidenceData, setEvidenceData, setActiveTab, showToast, currentGrievance, currentReferenceId } = useCase();
   const { language, t } = useLanguage();
+  const isHi = language === 'hi';
   const [analyzing, setAnalyzing] = useState(false);
   const [previewImage, setPreviewImage] = useState(null);
   const [showBSAModal, setShowBSAModal] = useState(false);
@@ -20,6 +23,7 @@ export const EvidenceVault = () => {
   const [copiedHash, setCopiedHash] = useState(false);
 
   const sampleBills = [
+
     {
       id: 'upi-rent-deposit-sample',
       title: language === 'hi' ? 'यूपीआई मकान सुरक्षा जमा रसीद (₹20,000)' : 'UPI Security Deposit Receipt (₹20,000)',
@@ -198,9 +202,13 @@ export const EvidenceVault = () => {
         <div className="lg:col-span-5 space-y-4">
           
           <div className="gov-card p-6 space-y-4 border-slate-300 bg-white shadow-sm">
-            <h3 className="text-xs font-bold uppercase tracking-wider text-[#0A2540]">
-              Upload Bill, Invoice, or Legal Agreement
-            </h3>
+            <div className="flex items-center justify-between">
+              <h3 className="text-xs font-bold uppercase tracking-wider text-[#0A2540]">
+                {isHi ? 'बिल, इनवॉइस या रेंट एग्रीमेंट अपलोड करें' : 'Upload Bill, Invoice, or Legal Agreement'}
+              </h3>
+              <WhyNeeded code="PROOF_OF_PAYMENT" variant="button" />
+            </div>
+
 
             <label className="border-2 border-dashed border-slate-300 hover:border-[#1E3A8A] rounded-lg p-6 flex flex-col items-center justify-center cursor-pointer transition-colors bg-slate-50 hover:bg-blue-50/30 block text-center">
               <Upload className="w-8 h-8 text-slate-500 mb-2" />
@@ -325,7 +333,11 @@ export const EvidenceVault = () => {
 
       </div>
 
+      {/* FEATURE 2: EVIDENCE -> CLAIM INTELLIGENCE MAP */}
+      <EvidenceClaimMap />
+
       {/* BSA Section 63 Certificate Modal */}
+
       <BSACertificateModal
         isOpen={showBSAModal}
         onClose={() => setShowBSAModal(false)}

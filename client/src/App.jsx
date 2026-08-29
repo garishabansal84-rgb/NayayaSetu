@@ -13,6 +13,7 @@ import { SchemeMatcher } from './components/schemes/SchemeMatcher';
 import { JurisdictionFinder } from './components/jurisdiction/JurisdictionFinder';
 import { CaseTracker } from './components/tracker/CaseTracker';
 import { KnowledgeWiki } from './components/wiki/KnowledgeWiki';
+import { CaseReadiness } from './components/caseIntelligence/CaseReadiness';
 import { AuthModal } from './components/auth/AuthModal';
 import { ProtectedFeatureGate } from './components/auth/ProtectedFeatureGate';
 import { CheckCircle2, AlertCircle, Info, X } from 'lucide-react';
@@ -46,6 +47,11 @@ export const App = () => {
             <EvidenceVault />
           </ProtectedFeatureGate>
         )}
+        {activeTab === 'readiness' && (
+          <ProtectedFeatureGate featureTitle="NyayaSetu Case Intelligence & Readiness Engine">
+            <CaseReadiness />
+          </ProtectedFeatureGate>
+        )}
         {activeTab === 'drafting' && (
           <ProtectedFeatureGate featureTitle="Statutory Notice & Formal Legal Drafting Studio">
             <DraftingStudio />
@@ -68,6 +74,7 @@ export const App = () => {
         )}
         {activeTab === 'wiki' && <KnowledgeWiki />}
       </main>
+
 
       {/* Global Toast Notification */}
       {toastMessage && (

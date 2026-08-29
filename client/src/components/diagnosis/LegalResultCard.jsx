@@ -5,10 +5,12 @@ import {
   Scale, ShieldCheck, Clock, FileCheck, ArrowRight, 
   ChevronDown, ChevronUp, ExternalLink, AlertTriangle, 
   Volume2, VolumeX, CheckCircle2, BookmarkCheck, FileText, Info, 
-  ShieldAlert, AlertCircle, CheckSquare, Square, Share2, Copy, Building2
+  ShieldAlert, AlertCircle, CheckSquare, Square, Share2, Copy, Building2, Activity
 } from 'lucide-react';
+
 import { speakLegalAdvice, stopSpeech } from '../../services/voiceService';
 import { LegalDispatchRelayModal } from '../drafting/LegalDispatchRelayModal';
+import { OpponentWargameSimulator } from './OpponentWargameSimulator';
 
 export const LegalResultCard = ({ diagnosis }) => {
   const { currentReferenceId, setActiveTab, showToast } = useCase();
@@ -447,7 +449,11 @@ export const LegalResultCard = ({ diagnosis }) => {
 
       </div>
 
+      {/* ADVERSARIAL OPPONENT DEFENSE SIMULATOR (RED-TEAM WARGAMER) */}
+      <OpponentWargameSimulator diagnosis={diagnosis} />
+
       {/* BOTTOM ACTION BAR: NOTICE STUDIO & 1-CLICK DISPATCH RELAY */}
+
       <div className="gov-card p-6 bg-gradient-to-r from-slate-900 to-[#0A2540] text-white flex flex-col sm:flex-row items-center justify-between gap-4">
         <div className="space-y-1">
           <h3 className="text-base font-bold text-white">
@@ -461,6 +467,14 @@ export const LegalResultCard = ({ diagnosis }) => {
         </div>
 
         <div className="flex items-center gap-2.5 flex-wrap w-full sm:w-auto justify-end">
+          <button
+            onClick={() => setActiveTab('readiness')}
+            className="flex-1 sm:flex-none px-4 py-2.5 rounded-md bg-blue-700 hover:bg-blue-800 text-white font-bold text-xs shadow-md transition-all flex items-center justify-center gap-1.5 cursor-pointer border border-blue-500/40"
+          >
+            <Activity className="w-4 h-4 text-amber-300" />
+            <span>{isHi ? '📊 केस रेडीनेस इंटेलिजेंस' : '📊 Case Readiness Suite'}</span>
+          </button>
+
           <button
             onClick={() => setIsRelayModalOpen(true)}
             className="flex-1 sm:flex-none px-4 py-2.5 rounded-md bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs shadow-md transition-all flex items-center justify-center gap-1.5 cursor-pointer"
@@ -477,6 +491,7 @@ export const LegalResultCard = ({ diagnosis }) => {
             <span>{t.btnGenerateNotice || 'Legal Notice Studio →'}</span>
           </button>
         </div>
+
       </div>
 
       {/* Multi-Channel Legal Dispatch Relay Modal */}

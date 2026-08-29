@@ -180,3 +180,38 @@ export const listCasesHandler = async (req, res, next) => {
     next(error);
   }
 };
+
+export const simulateOpponentHandler = async (req, res, next) => {
+  try {
+    const {
+      grievance,
+      rawText,
+      applicableActs,
+      evidenceData,
+      district = 'Lucknow',
+      state = 'Uttar Pradesh',
+      language = 'en'
+    } = req.body;
+
+    const actualGrievance = grievance || rawText || '';
+    const { simulateOpponentDefense } = await import('../services/opponentSimulatorService.js');
+
+    const simulation = await simulateOpponentDefense({
+      grievanceText: actualGrievance,
+      applicableActs: applicableActs || [],
+      evidenceData: evidenceData || null,
+      district,
+      state,
+      language
+    });
+
+    res.status(200).json({
+      success: true,
+      simulation,
+      data: simulation
+    });
+  } catch (error) {
+    console.error('Error in simulateOpponentHandler:', error);
+    next(error);
+  }
+};

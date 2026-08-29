@@ -5,7 +5,7 @@ import { useAuth } from '../../context/AuthContext';
 import { 
   Scale, FileText, Camera, Award, MapPin, 
   Clock, BookOpen, ChevronRight, Home, ArrowRight, Shield,
-  User, KeyRound, Fingerprint, Sparkles, LogOut, ShieldCheck 
+  User, KeyRound, Fingerprint, Sparkles, LogOut, ShieldCheck, Activity 
 } from 'lucide-react';
 
 export const Navbar = () => {
@@ -18,12 +18,14 @@ export const Navbar = () => {
     { id: 'home', label: t.navHome, icon: Home },
     { id: 'triage', label: t.navTriage, icon: Scale },
     { id: 'evidence', label: t.navEvidence, icon: Camera },
+    { id: 'readiness', label: isHi ? 'केस रेडीनेस' : 'Case Readiness', icon: Activity },
     { id: 'drafting', label: t.navDrafting, icon: FileText },
     { id: 'schemes', label: t.navSchemes, icon: Award },
     { id: 'jurisdiction', label: t.navJurisdiction, icon: MapPin },
     { id: 'tracker', label: t.navTracker, icon: Clock },
     { id: 'wiki', label: t.navWiki, icon: BookOpen },
   ];
+
 
   return (
     <header className="sticky top-0 z-40 bg-white border-b border-slate-200 shadow-xs">

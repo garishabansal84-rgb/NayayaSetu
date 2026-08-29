@@ -1,5 +1,6 @@
 import React from 'react';
 import { useLanguage } from '../../context/LanguageContext';
+import { WhyNeeded } from '../common/WhyNeeded';
 import { CheckCircle2, AlertTriangle, ExternalLink, FileText, ArrowRight, Building, HelpCircle } from 'lucide-react';
 
 export const DocumentGapCard = ({ documentGap, schemeTitle }) => {
@@ -55,12 +56,16 @@ export const DocumentGapCard = ({ documentGap, schemeTitle }) => {
           <div className="space-y-2">
             {missingDocs.map((doc, idx) => (
               <div key={idx} className="bg-white p-3.5 rounded border border-amber-200 space-y-1.5">
-                <div className="flex items-center justify-between text-xs font-bold text-[#0A2540]">
+                <div className="flex items-center justify-between text-xs font-bold text-[#0A2540] flex-wrap gap-2">
                   <span>{language === 'hi' ? doc.hindiName || doc.name : doc.name}</span>
-                  <span className="text-[10px] text-amber-900 bg-amber-50 px-1.5 py-0.5 rounded border border-amber-200">
-                    {t.mandatoryTag || 'Mandatory'}
-                  </span>
+                  <div className="flex items-center gap-1.5">
+                    <WhyNeeded code={doc.code} variant="button" />
+                    <span className="text-[10px] text-amber-900 bg-amber-50 px-1.5 py-0.5 rounded border border-amber-200">
+                      {t.mandatoryTag || 'Mandatory'}
+                    </span>
+                  </div>
                 </div>
+
                 
                 <p className="text-[11px] text-slate-600 leading-relaxed">
                   <strong className="text-slate-800">{t.procurementProcedure || 'Procurement Procedure:'} </strong>{doc.procurementGuide}
