@@ -80,13 +80,13 @@ export const LandingView = () => {
                 <img 
                   src={img.src} 
                   alt={img.alt} 
-                  className="w-full h-full object-cover object-center opacity-25"
+                  className="w-full h-full object-cover object-center opacity-60"
                 />
               </div>
             ))}
           </div>
           {/* Frosted / Gradient Overlay for optimal text legibility and contrast */}
-          <div className="absolute inset-0 bg-gradient-to-b from-slate-100/75 via-white/80 to-white/95" />
+          <div className="absolute inset-0 bg-gradient-to-b from-white/50 via-white/45 to-white/70" />
         </div>
 
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
