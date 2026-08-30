@@ -39,10 +39,60 @@ function parseCleanJSON(rawText) {
 export const getFallbackOpponentSimulation = (grievanceText = '', applicableActs = []) => {
   const lower = grievanceText.toLowerCase();
 
-  const isRent = /\b(rent|deposit|landlord|flat|apartment|tenant|painting|cleaning|lease)\b/i.test(lower);
-  const isConsumer = /\b(flipkart|amazon|phone|delivery|defective|warranty|refund|seller|merchant|invoice)\b/i.test(lower);
-  const isBuilder = /\b(builder|possession|rera|flat|apartment|developer|supertech|delay)\b/i.test(lower);
-  const isHospital = /\b(hospital|medical|doctor|ayushman|cashless|treatment|pmjay)\b/i.test(lower);
+  const isHospital = /\b(hospital|medical|doctor|ayushman|cashless|treatment|pmjay|pm-jay|trauma|admission|clinic|mediclaim|abha|chirayu)\b/i.test(lower);
+  const isDowryOrWomen = !isHospital && /\b(dowry|marriage|in-laws|husband|stridhan|car|gold|cash\s*demand|cruelty|498a|304b|bns\s*80)\b/i.test(lower);
+  const isRent = !isHospital && !isDowryOrWomen && (
+    /\b(rent|landlord|flat|apartment|tenant|painting|cleaning|lease|tenancy)\b/i.test(lower) ||
+    (/\bdeposit\b/i.test(lower) && /\b(rent|landlord|tenant|flat|apartment|lease|vacat|handover|owner|property)\b/i.test(lower))
+  );
+  const isConsumer = !isHospital && !isDowryOrWomen && !isRent && /\b(flipkart|amazon|phone|delivery|defective|warranty|refund|seller|merchant|invoice)\b/i.test(lower);
+  const isBuilder = !isHospital && !isDowryOrWomen && !isRent && !isConsumer && /\b(builder|possession|rera|flat|apartment|developer|supertech|delay)\b/i.test(lower);
+
+  if (isHospital) {
+    return {
+      opponentPersona: "Legal Counsel & Medical Superintendent for Empanelled Hospital Administration",
+      strategicDefensePosture: "Admission Protocol & Procedural Verification Defense",
+      settlementLikelihood: 92,
+      settlementOutlook: "Critical Settlement Likelihood (Hospital faces immediate NHA de-empanelment, 5x penalty, and medical council action)",
+      vulnerabilities: [
+        {
+          weakness: "Proof of Ayushman Card / ABHA ID presentation at casualty triage desk",
+          severity: "Low",
+          mitigation: "Include screenshot of Ayushman Bharat Golden Card / PM-JAY registration and time of arrival."
+        },
+        {
+          weakness: "Documentary proof of cash demand / deposit slip",
+          severity: "Low",
+          mitigation: "Seal admission slip / UPI transaction record under Section 63 Bharatiya Sakshya Adhiniyam (BSA 2023)."
+        }
+      ],
+      opponentCounterArguments: [
+        {
+          argument: "The ₹50,000 was a routine refundable security deposit for non-covered surgical consumables and room upgrades, not an advance for emergency treatment.",
+          proceduralTactics: "Will argue the treatment package requested was beyond standard PM-JAY cashless pre-authorization.",
+          statutoryBasis: "Hospital Inpatient Admission Bylaws & Private Healthcare Discretion.",
+          rebuttal: "NHA PM-JAY Clause 7.2 and Section 134(a) Motor Vehicles Act mandate 100% cashless emergency stabilization without any deposit under any head.",
+          precedentCitation: "Pt. Parmanand Katara v. Union of India (Supreme Court) — Fundamental duty to stabilize emergency patients with zero financial preconditions."
+        },
+        {
+          argument: "Patient did not submit biometric authentication at the Arogya Mitra desk prior to emergency triage.",
+          proceduralTactics: "Will claim biometric portal delay caused admission procedural holdup.",
+          statutoryBasis: "NHA TMS Operational Guidelines.",
+          rebuttal: "Emergency treatment cannot be withheld for lack of biometric authentication; offline emergency approval is mandated under NHA rules.",
+          precedentCitation: "Paschim Banga Khet Mazdoor Samity v. State of West Bengal (Supreme Court) — Right to life cannot be denied due to administrative or portal delays."
+        }
+      ],
+      tacticalShieldChecklist: [
+        "Quote NHA Clause 7.2 and Section 134(a) MVA in the formal demand notice",
+        "Attach SHA-256 sealed transaction receipt and Ayushman Golden Card copy",
+        "Lodge simultaneous docket on NHA CGRP portal (cgrms.pmjay.gov.in) and dial 14555"
+      ],
+      recommendedPrayerTweaks: [
+        "Demand 100% full refund of all unauthorized cash advances remitted.",
+        "Demand ₹1,00,000 compensation for mental agony, risk to human life, and statutory violation."
+      ]
+    };
+  }
 
   if (isRent) {
     return {

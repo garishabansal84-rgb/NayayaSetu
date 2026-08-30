@@ -336,9 +336,12 @@ Extract all factual, financial, and evidentiary details into valid JSON matching
     }
   }
 
-  const isDowryOrMatrimonial = /\b(dowry|marriage|wedding|in-laws|husband|stridhan|car|gold|cash\s*demand)\b/i.test(combinedDesc);
-  const isRentDeposit = /\b(rent|lease|landlord|deposit|painting|cleaning|tenant|tenancy|flat|prakash|green view)\b/i.test(combinedDesc);
-  const isHospitalNotice = isHospitalEvidence;
+  const isHospitalNotice = isHospitalEvidence || /\b(hospital|medical|doctor|ayushman|cashless|treatment|pmjay|pm-jay|trauma|admission|patient|clinic|mediclaim|abha|chirayu)\b/i.test(combinedDesc);
+  const isDowryOrMatrimonial = !isHospitalNotice && /\b(dowry|marriage|wedding|in-laws|husband|stridhan|car|gold|cash\s*demand)\b/i.test(combinedDesc);
+  const isRentDeposit = !isHospitalNotice && !isDowryOrMatrimonial && (
+    /\b(rent|lease|landlord|tenant|tenancy|prakash|green view)\b/i.test(combinedDesc) ||
+    (/\bdeposit\b/i.test(combinedDesc) && /\b(rent|landlord|tenant|flat|apartment|lease|vacat|handover|owner|property)\b/i.test(combinedDesc))
+  );
 
   let mock = {
     merchant: "RetailNet / Flipkart India Pvt Ltd",
@@ -357,7 +360,26 @@ Extract all factual, financial, and evidentiary details into valid JSON matching
     ]
   };
 
-  if (isRentDeposit) {
+  if (isHospitalNotice) {
+    const amountMatch = combinedDesc.match(/₹?\s*(\d{1,3}(?:,\d{3})+|\d{4,6})/);
+    const hospAmt = amountMatch ? (amountMatch[0].startsWith('₹') ? amountMatch[0] : `₹${amountMatch[0]}`) : "₹50,000.00";
+    mock = {
+      merchant: hospitalAudit?.hospitalName || "Private Multi-Speciality Hospital (PM-JAY Empanelled)",
+      gstin: "Reg No: MED-DEL-77810 / NHA-EHCP",
+      invoiceNumber: `ADM-${new Date().getFullYear()}-${Math.floor(10000 + Math.random() * 90000)}`,
+      amount: hospAmt,
+      date: new Date().toLocaleDateString('en-IN'),
+      productDescription: "Emergency Trauma Stabilization & Inpatient Admission Advance Demand",
+      warrantyClause: "NHA PM-JAY Clause 7.2: 100% Cashless hospitalization for empanelled beneficiaries. Section 134(a) MVA: Zero advance for trauma victims.",
+      breachPoint: `Unlawful ${hospAmt} cash advance demanded before emergency trauma stabilization, directly violating Section 134(a) Motor Vehicles Act and Section 12(2) Clinical Establishments Act.`,
+      evidenceStrength: "Critical Evidence (98% Evidentiary Score)",
+      keyFacts: [
+        `Hospital admission slip demands ${hospAmt} cash advance for emergency stabilization`,
+        "Patient possesses valid Ayushman Bharat (PM-JAY) Golden Card entitled to 100% cashless treatment",
+        "Refusal of emergency care violates Supreme Court Parmanand Katara Article 21 mandate"
+      ]
+    };
+  } else if (isRentDeposit) {
     const amountMatch = combinedDesc.match(/₹?\s*(\d{1,3}(?:,\d{3})+|\d{4,6})/);
     const depositAmt = amountMatch ? (amountMatch[0].startsWith('₹') ? amountMatch[0] : `₹${amountMatch[0]}`) : "₹20,000.00";
     mock = {
@@ -391,23 +413,6 @@ Extract all factual, financial, and evidentiary details into valid JSON matching
         "Marriage solemnized within past 7 years established by official marriage registry/invitation",
         "Documented cash/bank transfers and messages establishing repeated demands of ₹5 Lakh and car",
         "Statutory presumption under Section 118 BSA (Section 113B Evidence Act) shifts burden of proof onto the accused"
-      ]
-    };
-  } else if (isHospitalNotice) {
-    mock = {
-      merchant: hospitalAudit?.hospitalName || "Private Multi-Speciality Hospital",
-      gstin: "Reg No: MED-DEL-77810 / NHA-EHCP",
-      invoiceNumber: `ADM-${new Date().getFullYear()}-${Math.floor(10000 + Math.random() * 90000)}`,
-      amount: "₹50,000.00",
-      date: new Date().toLocaleDateString('en-IN'),
-      productDescription: "Emergency Trauma Stabilization & Inpatient Admission Advance Demand",
-      warrantyClause: "NHA PM-JAY Clause 7.2: 100% Cashless hospitalization for empanelled beneficiaries. Section 134(a) MVA: Zero advance for trauma victims.",
-      breachPoint: "Unlawful ₹50,000 cash advance demanded before emergency trauma stabilization, directly violating Section 134(a) Motor Vehicles Act and Section 12(2) Clinical Establishments Act.",
-      evidenceStrength: "Critical Evidence (98% Evidentiary Score)",
-      keyFacts: [
-        "Hospital admission slip demands ₹50,000 cash advance for emergency stabilization",
-        "Patient possesses valid Ayushman Bharat (PM-JAY) Golden Card entitled to 100% cashless treatment",
-        "Refusal of emergency care violates Supreme Court Parmanand Katara Article 21 mandate"
       ]
     };
   }

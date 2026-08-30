@@ -23,7 +23,35 @@ export const EvidenceVault = () => {
   const [copiedHash, setCopiedHash] = useState(false);
 
   const sampleBills = [
-
+    {
+      id: 'hospital-ayushman-sample',
+      title: language === 'hi' ? 'आयुष्मान अस्पताल अग्रिम मांग रसीद (₹50,000)' : 'Hospital PM-JAY Cash Advance Receipt (₹50,000)',
+      image: 'https://images.unsplash.com/photo-1584515979956-d9f6e5d09982?w=600&auto=format&fit=crop&q=80',
+      data: {
+        vendorName: "Lifeline Multi-Speciality Hospital (PM-JAY Empanelled)",
+        merchant: "Lifeline Multi-Speciality Hospital (PM-JAY Empanelled)",
+        gstin: "Reg No: MED-DEL-77810 / NHA-EHCP",
+        invoiceNumber: "ADM-EMRG-2026-9041",
+        date: "15/01/2026",
+        totalAmount: "₹50,000.00",
+        amount: "₹50,000.00",
+        productDescription: "Emergency Trauma Stabilization & Admission Advance Deposit Demand",
+        items: [{ desc: "Emergency Trauma Stabilization Advance Deposit", amount: "₹50,000.00" }],
+        sha256Hash: "7754d9827bab3948e50a98216c4f039184561029384756abcdef0192837465aa",
+        bsa63Admissible: true,
+        keyFindings: [
+          "Hospital demanded ₹50,000 advance deposit prior to emergency trauma stabilization",
+          "Patient possesses valid Ayushman Bharat PM-JAY Golden Card entitled to 100% cashless treatment",
+          "Demanding cash advance violates Section 134(a) Motor Vehicles Act and NHA Clause 7.2"
+        ],
+        keyFacts: [
+          "Hospital demanded ₹50,000 advance deposit prior to emergency trauma stabilization",
+          "Patient possesses valid Ayushman Bharat PM-JAY Golden Card entitled to 100% cashless treatment",
+          "Demanding cash advance violates Section 134(a) Motor Vehicles Act and NHA Clause 7.2"
+        ],
+        breachPoint: "Unlawful ₹50,000 cash advance demanded before emergency trauma stabilization, violating Section 134(a) Motor Vehicles Act, Section 12(2) Clinical Establishments Act, and NHA PM-JAY Clause 7.2 cashless mandate."
+      }
+    },
     {
       id: 'upi-rent-deposit-sample',
       title: language === 'hi' ? 'यूपीआई मकान सुरक्षा जमा रसीद (₹20,000)' : 'UPI Security Deposit Receipt (₹20,000)',

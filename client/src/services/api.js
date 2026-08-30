@@ -52,7 +52,7 @@ export const apiDiagnoseGrievance = async ({ rawText, citizenName, phone, email,
       matching = SAMPLE_GRIEVANCES.find(g => g.id === 'g4');
     } else if (/\b(builder|builders|flat|flats|apartment|apartments|possession|rera|developer)\b/i.test(textLower)) {
       matching = SAMPLE_GRIEVANCES.find(g => g.id === 'g5');
-    } else if (/\b(deposit|security\s*deposit|rent|rented|landlord|tenant|tenancy|lease)\b/i.test(textLower)) {
+    } else if (/\b(rent|rented|landlord|tenant|tenancy|lease)\b/i.test(textLower) || (/\bdeposit\b/i.test(textLower) && /\b(flat|apartment|house|room|broker|pg|owner|landlord|tenant|vacat|handover|rent)\b/i.test(textLower))) {
       matching = SAMPLE_GRIEVANCES.find(g => g.id === 'g2');
     } else if (/\b(rti|tender|tenders|road|pothole|potholes|pwd|public\s*work)\b/i.test(textLower)) {
       matching = SAMPLE_GRIEVANCES.find(g => g.id === 'g3');
