@@ -9,7 +9,6 @@ import {
   Sparkles, CheckCircle2, AlertCircle, X, ArrowRight, 
   Fingerprint, Award, Building2, RefreshCw 
 } from 'lucide-react';
-import confetti from 'canvas-confetti';
 
 export const AuthModal = () => {
   const { 
@@ -144,10 +143,6 @@ export const AuthModal = () => {
         setJurisdiction(district, state);
         setIsAuthModalOpen(false);
         setIsPassModalOpen(true);
-
-        try {
-          confetti({ particleCount: 70, spread: 80, origin: { y: 0.6 } });
-        } catch (e) {}
         showToast(isHi ? 'विशिष्ट न्याय पास जारी किया गया!' : 'Unique NyayaPass Issued & Authenticated!', 'success');
       }
     } catch (err) {

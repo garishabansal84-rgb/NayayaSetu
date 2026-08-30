@@ -9,7 +9,6 @@ import {
   FileText, Shield, Sparkles, Send, Download, 
   CheckCircle, ArrowRight, BookOpen, RefreshCw, Scale, Share2, MessageSquare, Mail 
 } from 'lucide-react';
-import confetti from 'canvas-confetti';
 
 export const DraftingStudio = () => {
   const { 
@@ -239,9 +238,6 @@ export const DraftingStudio = () => {
       if (res.success) {
         setActiveDraft(res.draft);
         setIsPreviewOpen(true);
-        try {
-          confetti({ particleCount: 50, spread: 70, origin: { y: 0.7 } });
-        } catch (err) {}
         showToast('Official Legal Notice generated with QR verification.', 'success');
       }
     } finally {

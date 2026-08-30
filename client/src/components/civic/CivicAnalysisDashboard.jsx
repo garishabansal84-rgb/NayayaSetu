@@ -11,7 +11,6 @@ import {
   MapPin, Mic, MicOff, BookOpen, ExternalLink, HelpCircle, 
   ArrowRight, ShieldCheck, Clock, Building2, Phone, CheckSquare, Square, Share2
 } from 'lucide-react';
-import confetti from 'canvas-confetti';
 
 const SAMPLE_CIVIC_PROMPTS = [
   {
@@ -188,10 +187,6 @@ export const CivicAnalysisDashboard = () => {
         setRecentAnalyses(updatedRecent);
         try {
           localStorage.setItem('nyayasetu_recent_civic_analyses', JSON.stringify(updatedRecent));
-        } catch (e) {}
-
-        try {
-          confetti({ particleCount: 50, spread: 70, origin: { y: 0.6 } });
         } catch (e) {}
 
         showToast(isHi ? 'नागरिक शिकायत का सफल AI विश्लेषण!' : 'Civic Complaint Analysis Completed!', 'success');
