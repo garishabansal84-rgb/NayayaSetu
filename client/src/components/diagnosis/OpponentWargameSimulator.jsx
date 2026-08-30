@@ -93,7 +93,7 @@ export const OpponentWargameSimulator = ({ diagnosis, grievanceText }) => {
   if (!diagnosis) return null;
 
   return (
-    <div className="gov-card p-6 bg-slate-900 text-white rounded-xl border border-slate-800 shadow-xl space-y-6 animate-fade-in mt-6">
+    <div className="p-6 bg-slate-900 text-white rounded-xl border border-slate-800 shadow-xl space-y-6 animate-fade-in mt-6">
       
       {/* Top Banner */}
       <div className="flex flex-wrap items-center justify-between gap-4 pb-4 border-b border-slate-800">

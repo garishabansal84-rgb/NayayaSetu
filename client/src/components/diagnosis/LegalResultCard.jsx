@@ -454,7 +454,7 @@ export const LegalResultCard = ({ diagnosis }) => {
 
       {/* BOTTOM ACTION BAR: NOTICE STUDIO & 1-CLICK DISPATCH RELAY */}
 
-      <div className="gov-card p-6 bg-gradient-to-r from-slate-900 to-[#0A2540] text-white flex flex-col sm:flex-row items-center justify-between gap-4">
+      <div className="p-6 bg-gradient-to-r from-slate-900 to-[#0A2540] text-white rounded-xl border border-slate-700 shadow-lg flex flex-col sm:flex-row items-center justify-between gap-4">
         <div className="space-y-1">
           <h3 className="text-base font-bold text-white">
             {t.readyNoticeText || 'Ready to enforce your rights?'}

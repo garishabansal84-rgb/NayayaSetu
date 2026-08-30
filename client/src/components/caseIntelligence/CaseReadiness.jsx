@@ -84,20 +84,20 @@ export const CaseReadiness = () => {
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8 animate-fade-in text-slate-900">
       
       {/* Official Government Institutional Header */}
-      <div className="gov-card p-6 sm:p-8 bg-gradient-to-r from-[#0A2540] via-[#1E3A8A] to-[#0A2540] text-white rounded-2xl shadow-xl border border-slate-700 space-y-4">
+      <div className="p-6 sm:p-8 bg-gradient-to-r from-[#0A2540] via-[#1E3A8A] to-[#0A2540] text-white rounded-2xl shadow-xl border border-slate-700 space-y-4">
         <div className="flex flex-wrap items-center justify-between gap-4">
           <div className="space-y-1.5">
             <div className="flex items-center gap-2">
-              <span className="px-2.5 py-0.5 rounded text-[10px] font-extrabold uppercase bg-amber-400 text-slate-950 tracking-wider">
+              <span className="px-2.5 py-0.5 rounded text-[10px] font-extrabold uppercase bg-amber-400 text-slate-950 tracking-wider shadow-xs">
                 GOVERNMENT DECISION-SUPPORT LAYER
               </span>
               <span className="text-xs font-mono text-slate-300">
-                Ref: {currentReferenceId}
+                Ref: {currentReferenceId || 'NYA-2026-2689'}
               </span>
             </div>
             <h1 className="text-2xl sm:text-3xl font-bold font-serif tracking-tight text-white flex items-center gap-3">
-              <Activity className="w-7 h-7 text-amber-400 animate-pulse" />
-              <span>{isHi ? 'केस इंटेलिजेंस एवं प्री-लिटिगेशन रेडीनेस' : 'Case Intelligence & Readiness Engine'}</span>
+              <Activity className="w-7 h-7 text-amber-400 animate-pulse flex-shrink-0" />
+              <span className="text-white drop-shadow-sm">{isHi ? 'केस इंटेलिजेंस एवं प्री-लिटिगेशन रेडीनेस' : 'Case Intelligence & Readiness Engine'}</span>
             </h1>
             <p className="text-xs sm:text-sm text-slate-200 max-w-3xl leading-relaxed">
               {isHi
@@ -111,7 +111,7 @@ export const CaseReadiness = () => {
               {isHi ? 'अधिकार क्षेत्र:' : 'Jurisdiction Forum:'}
             </span>
             <span className="text-sm font-bold text-amber-300">
-              {selectedDistrict}, {selectedState}
+              {selectedDistrict && selectedState ? `${selectedDistrict}, ${selectedState}` : 'Lucknow, Uttar Pradesh'}
             </span>
             <span className="text-[11px] text-slate-300 font-mono">
               DCDRC / DLSA Unit Active

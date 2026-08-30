@@ -276,7 +276,7 @@ export const EvidenceVault = () => {
           </div>
 
           {/* SHA-256 Cryptographic Evidence Integrity Card */}
-          <div className="gov-card p-4 bg-slate-900 text-white rounded-lg space-y-3 border-slate-800 shadow-sm">
+          <div className="p-4 bg-slate-900 text-white rounded-lg space-y-3 border border-slate-800 shadow-sm">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-2 text-xs font-bold text-emerald-400 uppercase tracking-wide">
                 <KeyRound className="w-4 h-4" />
@@ -317,7 +317,7 @@ export const EvidenceVault = () => {
           )}
 
           {/* Citizen Privacy & Banking Security Shield Card */}
-          <div className="gov-card p-4 bg-slate-900 text-white rounded-lg space-y-2.5 border-slate-800 shadow-sm">
+          <div className="p-4 bg-slate-900 text-white rounded-lg space-y-2.5 border border-slate-800 shadow-sm">
             <div className="flex items-center gap-2 text-xs font-bold text-emerald-400 uppercase tracking-wide">
               <ShieldCheck className="w-4 h-4" />
               <span>{language === 'hi' ? 'नागरिक डेटा सुरक्षा एवं साक्ष्य संप्रभुता' : 'Citizen Privacy & Evidentiary Sovereignty'}</span>
